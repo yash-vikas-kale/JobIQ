@@ -1,2 +1,2 @@
 # JobIQ
-AI
+AI for career analysis
