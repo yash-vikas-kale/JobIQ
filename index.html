@@ -1,200 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JobiQ CARE - Career Path Finder</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f9fb; color: #333; line-height: 1.6; }
-
-    header {
-      background: linear-gradient(90deg, #00b4d8, #0077b6);
-      padding: 20px 40px;
-      display: flex; justify-content: space-between; align-items: center;
-      color: white;
-    }
-    header .logo h1 { font-size: 28px; letter-spacing: 1px; }
-    nav a { margin: 0 12px; text-decoration: none; color: white; font-weight: 500; transition: 0.3s; }
-    nav a:hover { color: #caf0f8; }
-
-    .intro {
-      text-align: center; padding: 70px 20px;
-      background: url('') no-repeat center/cover, #90e0ef;
-      color: #004d4d;
-    }
-    .intro h2 { font-size: 40px; margin-bottom: 20px; }
-    .intro p { font-size: 20px; margin-bottom: 30px; }
-    .btn {
-      background: #0077b6; color: white; border: none; padding: 15px 30px;
-      font-size: 18px; border-radius: 8px; cursor: pointer; transition: 0.3s;
-    }
-    .btn:hover { background: #023e8a; }
-
-    .career-clusters {
-      padding: 60px 20px; background-color: #f0f8ff;
-    }
-    .career-clusters h3 { font-size: 30px; text-align: center; margin-bottom: 40px; color: #0077b6; }
-    .clusters { display: flex; justify-content: center; flex-wrap: wrap; gap: 30px; }
-    .cluster {
-      text-align: center; width: 200px; background: white; padding: 20px;
-      border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: transform 0.3s;
-    }
-    .cluster:hover { transform: translateY(-8px); }
-    .cluster img {
-      width: 160px; height: 160px; background: #ccc;
-      border-radius: 12px; margin-bottom: 15px; object-fit: cover;
-    }
-    .cluster p { font-weight: 600; }
-
-    footer {
-      background: #0077b6; text-align: center; padding: 15px; margin-top: 50px;
-    }
-    footer p { color: #fff; }
-
-    /* Question Page */
-    .question-section { display: none; padding: 50px 20px; text-align: center; }
-    .question-box {
-      max-width: 600px; margin: auto; background: #fff; padding: 30px;
-      border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    }
-    .question-box h3 { margin-bottom: 25px; color: #0077b6; }
-    .question-box label { display: block; margin-top: 20px; text-align: left; font-weight: 600; }
-    .question-box input, .question-box select {
-      width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px; margin-top: 8px;
-    }
-    .loading-section {
-      display: none; text-align: center; padding: 60px;
-    }
-    .loading-section h2 { color: #0077b6; margin-bottom: 20px; }
-    .spinner {
-      width: 60px; height: 60px; border: 6px solid #ddd;
-      border-top: 6px solid #0077b6; border-radius: 50%;
-      margin: auto; animation: spin 1s linear infinite;
-    }
-    @keyframes spin { 100% { transform: rotate(360deg); } }
-
-    /* Result Section */
-    .result-section { display: none; padding: 60px 20px; text-align: center; }
-    .result-box {
-      max-width: 800px; margin: auto; padding: 30px;
-      background: #fff; border-radius: 12px; box-shadow: 0 6px 14px rgba(0,0,0,0.15);
-    }
-    .result-box h2 { color: #023e8a; margin-bottom: 20px; }
-    .result-box p { font-size: 18px; margin-bottom: 10px; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobIQ - CARE</title>
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
-  <header>
-    <div class="logo"><h1>JobiQ - CARE</h1></div>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="#">Explore</a>
-    </nav>
-  </header>
 
-  <!-- Intro Page -->
-  <section class="intro" id="intro">
-    <h2>Unlock Your Future Potential</h2>
-    <p>Discover personalized career paths that match your unique skills, interests, and passions with JobiQ - CARE.</p>
-    <button class="btn" onclick="goToQuestions()">Get Started</button>
-  </section>
+    <header class="container">
+        <div class="logo">JobIQ – CARE</div>
+        <nav>
+            <a href="javascript:void(0);">Get Started</a>
+            <a href="#career-clusters">Explore</a>
+        </nav>
+    </header>
 
-  <!-- Career Clusters -->
-  <section class="career-clusters">
-    <h3>Explore Career Clusters</h3>
-    <div class="clusters">
-      <div class="cluster"><img src="business-finance.jpg" alt="Business & Finance"><p>Business & Finance</p></div>
-      <div class="cluster"><img src="creative_arts.jpg" alt="Creative Arts"><p>Creative Arts</p></div>
-      <div class="cluster"><img src="technology.jpg" alt="Technology"><p>Technology</p></div>
-      <div class="cluster"><img src="healthcare.webp" alt="Healthcare"><p>Healthcare</p></div>
-      <div class="cluster"><img src="STEM.jpg" alt="STEM"><p>STEM</p></div>
-    </div>
-  </section>
+    <main>
+        <section id="hero" class="hero-fullscreen">
+            <h1>Unlock Your Future Potential.</h1>
+            <p>Discover personalized career paths that match your unique skills, interests, and passions with JobiQ - CARE.</p>
+            <button class="cta-button" type="button">Get Started &rarr;</button>
+        </section>
 
-  <!-- Question Page -->
-  <section class="question-section" id="question-section">
-    <div class="question-box">
-      <h3>Tell Us About Yourself</h3>
-      <form id="careerForm" onsubmit="submitQuestions(event)">
-        <label>Your Skills</label>
-        <input type="text" name="skills" placeholder="e.g., Python, public speaking">
+        <!-- How It Works Section -->
+        <section id="how-it-works">
+            <h2 style="color: #468189;">How It Works</h2>
+            <p style="color: #468189; font-size: 1.2rem; max-width: 800px; margin: 0 auto;">
+                Our process is simple. You provide your CV, our AI analyzes it, we ask a few clarifying questions to understand your goals, and then we deliver personalized career recommendations complete with skill-gap analysis and salary insights.
+            </p>
+        </section>
 
-        <label>Your Interests</label>
-        <input type="text" name="interests" placeholder="e.g., design, teaching, robotics">
+        <section id="career-clusters" class="container">
+            <h2>Explore Career Clusters</h2>
+            <p>Browse careers grouped by industry or field for broader exploration.</p>
+            <div class="clusters-grid">
+                <div class="cluster-card">
+                    <img src="https://images.unsplash.com/photo-1593642634315-48f5414c3ad9?q=80&w=2000" alt="Business & Finance">
+                    <div class="card-header">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path><rect width="20" height="14" x="2" y="6" rx="2"></rect></svg>
+                        <h3>Business &<br>Finance</h3>
+                    </div>
+                    <p>Explore various roles and opportunities in the business & finance sector.</p>
+                </div>
+                <div class="cluster-card">
+                    <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?q=80&w=2000" alt="Creative Arts">
+                    <div class="card-header">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"></circle><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"></circle><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"></circle><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"></circle><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"></path></svg>
+                        <h3>Creative<br>Arts</h3>
+                    </div>
+                    <p>Explore various roles and opportunities in the creative arts sector.</p>
+                </div>
+                <div class="cluster-card">
+                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2000" alt="Technology">
+                    <div class="card-header">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                        <h3>Technology</h3>
+                    </div>
+                    <p>Explore various roles and opportunities in the technology sector.</p>
+                </div>
+                <div class="cluster-card">
+                    <img src="https://images.unsplash.com/photo-1538108149393-fbbd81895907?q=80&w=2000" alt="Healthcare">
+                    <div class="card-header">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path><path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"></path></svg>
+                        <h3>Healthcare</h3>
+                    </div>
+                    <p>Explore various roles and opportunities in the healthcare sector.</p>
+                </div>
+                <div class="cluster-card">
+                    <img src="https://images.unsplash.com/photo-1507413245164-6160d8298b31?q=80&w=2000" alt="STEM">
+                    <div class="card-header">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"></circle><path d="M20.2 20.2c2.04-2.03.02-7.36-4.5-11.9-4.54-4.52-9.87-6.54-11.9-4.5-2.04 2.03-.02 7.36 4.5 11.9 4.54 4.52 9.87 6.54 11.9 4.5Z"></path><path d="M15.7 15.7c4.52-4.54 6.54-9.87 4.5-11.9-2.03-2.04-7.36-.02-11.9 4.5-4.52 4.54-6.54 9.87-4.5 11.9 2.03 2.04 7.36.02 11.9-4.5Z"></path></svg>
+                        <h3>STEM</h3>
+                    </div>
+                    <p>Explore various roles and opportunities in the stem sector.</p>
+                </div>
+            </div>
+        </section>
 
-        <label>Your Values</label>
-        <input type="text" name="values" placeholder="e.g., creativity, teamwork, innovation">
+        <section id="team" class="container">
+            <h2>Our Team</h2>
+            <p>The minds behind JobiQ Intel</p>
+            <div class="team-grid">
+                <div class="team-member">
+                    <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Yash Kale" class="team-dp">
+                    <div class="team-name">Yash Kale</div>
+                    <div class="team-role">Team Member</div>
+                </div>
+                <div class="team-member">
+                    <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Jitesh Choudhary" class="team-dp">
+                    <div class="team-name">Jitesh Choudhary</div>
+                    <div class="team-role">Team Member</div>
+                </div>
+                <div class="team-member">
+                    <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Ruturaj Borawake" class="team-dp">
+                    <div class="team-name">Ruturaj Borawake</div>
+                    <div class="team-role">Team Member</div>
+                </div>
+                <div class="team-member">
+                    <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Ayush Saraf" class="team-dp">
+                    <div class="team-name">Ayush Saraf</div>
+                    <div class="team-role">Team Member</div>
+                </div>
+            </div>
+        </section>
+    </main>
 
-        <label>Your Education Level</label>
-        <select name="education">
-          <option>High School</option>
-          <option>Bachelor’s Degree</option>
-          <option>Master’s Degree</option>
-          <option>PhD</option>
-          <option>Other</option>
-        </select>
+    <footer>
+        <p>© 2025 JobiQ - CARE. All rights reserved.</p>
+    </footer>
 
-        <label>Preferred Work Environment</label>
-        <select name="workstyle">
-          <option>Office</option>
-          <option>Remote</option>
-          <option>Hybrid</option>
-          <option>Flexible</option>
-        </select>
-
-        <label>Your Location</label>
-        <input type="text" name="location" placeholder="e.g., San Francisco, USA">
-
-        <button class="btn" type="submit">Submit</button>
-      </form>
-    </div>
-  </section>
-
-  <!-- Loading Section -->
-  <section class="loading-section" id="loading-section">
-    <h2>Loading Your Suitable Job Interface...</h2>
-    <div class="spinner"></div>
-  </section>
-
-  <!-- Result Section -->
-  <section class="result-section" id="result-section">
-    <div class="result-box">
-      <h2>Your Career Suggestions</h2>
-      <p id="result-text">Based on your skills and interests, here are some career paths you may explore...</p>
-      <button class="btn" onclick="restart()">Restart</button>
-    </div>
-  </section>
-
-  <footer>
-    <p>&copy; 2025 JobiQ CARE. All rights reserved.</p>
-  </footer>
-
-  <script>
-    function goToQuestions() {
-      document.getElementById('intro').style.display = 'none';
-      document.getElementById('question-section').style.display = 'block';
-      window.scrollTo(0,0);
-    }
-
-    function submitQuestions(event) {
-      event.preventDefault();
-      document.getElementById('question-section').style.display = 'none';
-      document.getElementById('loading-section').style.display = 'block';
-
-      setTimeout(() => {
-        document.getElementById('loading-section').style.display = 'none';
-        document.getElementById('result-section').style.display = 'block';
-        document.getElementById('result-text').innerText = 
-          "You seem suited for Technology and Creative Arts sectors. Jobs like UI/UX Designer, Data Analyst, or Product Manager may fit your profile.";
-      }, 3000);
-    }
-
-    function restart() {
-      document.getElementById('result-section').style.display = 'none';
-      document.getElementById('intro').style.display = 'block';
-      window.scrollTo(0,0);
-    }
-  </script>
 </body>
 </html>
