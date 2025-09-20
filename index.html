@@ -1,1 +1,215 @@
-<p>hello</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobiQ CARE - Career Path Finder</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #e1f3f6;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header .logo h1 {
+            font-size: 24px;
+            color: #0077b6;
+        }
+
+        nav a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #0077b6;
+        }
+
+        .intro {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: #a0d8e7;
+        }
+
+        .intro h2 {
+            font-size: 32px;
+            color: #005f73;
+        }
+
+        .intro p {
+            margin: 20px 0;
+            font-size: 18px;
+        }
+
+        button {
+            background-color: #00b4d8;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #009cba;
+        }
+
+        .career-analysis {
+            padding: 20px;
+            background-color: #ffffff;
+        }
+
+        .career-analysis h3 {
+            font-size: 28px;
+            color: #004d4d;
+            margin-bottom: 20px;
+        }
+
+        .input-fields {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .input-fields label {
+            font-weight: bold;
+        }
+
+        .input-fields input {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .career-clusters {
+            padding: 40px 20px;
+            background-color: #f0f8ff;
+        }
+
+        .career-clusters h3 {
+            font-size: 28px;
+            color: #0077b6;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .clusters {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .cluster {
+            text-align: center;
+            margin: 15px;
+        }
+
+        .cluster img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        footer {
+            background-color: #e1f3f6;
+            text-align: center;
+            padding: 10px;
+            margin-top: 30px;
+        }
+
+        footer p {
+            color: #0077b6;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>JobiQ - CARE</h1>
+        </div>
+        <nav>
+            <a href="#">Get Started</a>
+            <a href="#">Explore</a>
+        </nav>
+    </header>
+
+    <section class="intro">
+        <h2>Unlock Your Future Potential</h2>
+        <p>Discover personalized career paths that match your unique skills, interests, and passions with JodiQ - CARE.</p>
+        <button>Get Started</button>
+    </section>
+
+    <section class="career-analysis">
+        <h3>Career Analysis & Recommendation Engine</h3>
+        <p>Tell us about yourself, and our AI will generate personalized career suggestions for you.</p>
+
+        <div class="input-fields">
+            <label for="skills">Your Skills</label>
+            <input type="text" id="skills" placeholder="e.g., Python, public speaking, project management">
+
+            <label for="interests">Your Interests</label>
+            <input type="text" id="interests" placeholder="e.g., video games, sustainable farming, sci-fi novels">
+
+            <label for="values">Your Values</label>
+            <input type="text" id="values" placeholder="e.g., creativity, stability, social impact">
+
+            <label for="location">Your Location</label>
+            <input type="text" id="location" placeholder="e.g., San Francisco, USA">
+
+            <button id="get-recommendations">Get Recommendations</button>
+        </div>
+    </section>
+
+    <section class="career-clusters">
+        <h3>Explore Career Clusters</h3>
+        <div class="clusters">
+            <div class="cluster">
+                <img src="business-finance.jpg" alt="Business & Finance">
+                <p>Business & Finance</p>
+            </div>
+            <div class="cluster">
+                <img src="creative_arts.jpg" alt="Creative Arts">
+                <p>Creative Arts</p>
+            </div>
+            <div class="cluster">
+                <img src="technology.jpg" alt="Technology">
+                <p>Technology</p>
+            </div>
+            <div class="cluster">
+                <img src="healthcare.webp" alt="Healthcare">
+                <p>Healthcare</p>
+            </div>
+            <div class="cluster">
+                <img src="STEM.jpg" alt="STEM">
+                <p>STEM</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 JobiQ CARE. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.getElementById('get-recommendations').addEventListener('click', function() {
+            alert('Career recommendations will be generated based on the provided information!');
+        });
+    </script>
+</body>
+</html>
