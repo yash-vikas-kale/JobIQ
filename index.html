@@ -1,215 +1,200 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JobiQ CARE - Career Path Finder</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JobiQ CARE - Career Path Finder</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f9fb; color: #333; line-height: 1.6; }
 
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f7f7f7;
-            color: #333;
-            line-height: 1.6;
-        }
+    header {
+      background: linear-gradient(90deg, #00b4d8, #0077b6);
+      padding: 20px 40px;
+      display: flex; justify-content: space-between; align-items: center;
+      color: white;
+    }
+    header .logo h1 { font-size: 28px; letter-spacing: 1px; }
+    nav a { margin: 0 12px; text-decoration: none; color: white; font-weight: 500; transition: 0.3s; }
+    nav a:hover { color: #caf0f8; }
 
-        header {
-            background-color: #e1f3f6;
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    .intro {
+      text-align: center; padding: 70px 20px;
+      background: url('') no-repeat center/cover, #90e0ef;
+      color: #004d4d;
+    }
+    .intro h2 { font-size: 40px; margin-bottom: 20px; }
+    .intro p { font-size: 20px; margin-bottom: 30px; }
+    .btn {
+      background: #0077b6; color: white; border: none; padding: 15px 30px;
+      font-size: 18px; border-radius: 8px; cursor: pointer; transition: 0.3s;
+    }
+    .btn:hover { background: #023e8a; }
 
-        header .logo h1 {
-            font-size: 24px;
-            color: #0077b6;
-        }
+    .career-clusters {
+      padding: 60px 20px; background-color: #f0f8ff;
+    }
+    .career-clusters h3 { font-size: 30px; text-align: center; margin-bottom: 40px; color: #0077b6; }
+    .clusters { display: flex; justify-content: center; flex-wrap: wrap; gap: 30px; }
+    .cluster {
+      text-align: center; width: 200px; background: white; padding: 20px;
+      border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: transform 0.3s;
+    }
+    .cluster:hover { transform: translateY(-8px); }
+    .cluster img {
+      width: 160px; height: 160px; background: #ccc;
+      border-radius: 12px; margin-bottom: 15px; object-fit: cover;
+    }
+    .cluster p { font-weight: 600; }
 
-        nav a {
-            margin: 0 10px;
-            text-decoration: none;
-            color: #0077b6;
-        }
+    footer {
+      background: #0077b6; text-align: center; padding: 15px; margin-top: 50px;
+    }
+    footer p { color: #fff; }
 
-        .intro {
-            text-align: center;
-            padding: 40px 20px;
-            background-color: #a0d8e7;
-        }
+    /* Question Page */
+    .question-section { display: none; padding: 50px 20px; text-align: center; }
+    .question-box {
+      max-width: 600px; margin: auto; background: #fff; padding: 30px;
+      border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    .question-box h3 { margin-bottom: 25px; color: #0077b6; }
+    .question-box label { display: block; margin-top: 20px; text-align: left; font-weight: 600; }
+    .question-box input, .question-box select {
+      width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px; margin-top: 8px;
+    }
+    .loading-section {
+      display: none; text-align: center; padding: 60px;
+    }
+    .loading-section h2 { color: #0077b6; margin-bottom: 20px; }
+    .spinner {
+      width: 60px; height: 60px; border: 6px solid #ddd;
+      border-top: 6px solid #0077b6; border-radius: 50%;
+      margin: auto; animation: spin 1s linear infinite;
+    }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
 
-        .intro h2 {
-            font-size: 32px;
-            color: #005f73;
-        }
-
-        .intro p {
-            margin: 20px 0;
-            font-size: 18px;
-        }
-
-        button {
-            background-color: #00b4d8;
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-
-        button:hover {
-            background-color: #009cba;
-        }
-
-        .career-analysis {
-            padding: 20px;
-            background-color: #ffffff;
-        }
-
-        .career-analysis h3 {
-            font-size: 28px;
-            color: #004d4d;
-            margin-bottom: 20px;
-        }
-
-        .input-fields {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .input-fields label {
-            font-weight: bold;
-        }
-
-        .input-fields input {
-            padding: 10px;
-            font-size: 16px;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-        }
-
-        .career-clusters {
-            padding: 40px 20px;
-            background-color: #f0f8ff;
-        }
-
-        .career-clusters h3 {
-            font-size: 28px;
-            color: #0077b6;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .clusters {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-        }
-
-        .cluster {
-            text-align: center;
-            margin: 15px;
-        }
-
-        .cluster img {
-            width: 150px;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 10px;
-        }
-
-        footer {
-            background-color: #e1f3f6;
-            text-align: center;
-            padding: 10px;
-            margin-top: 30px;
-        }
-
-        footer p {
-            color: #0077b6;
-        }
-    </style>
+    /* Result Section */
+    .result-section { display: none; padding: 60px 20px; text-align: center; }
+    .result-box {
+      max-width: 800px; margin: auto; padding: 30px;
+      background: #fff; border-radius: 12px; box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+    }
+    .result-box h2 { color: #023e8a; margin-bottom: 20px; }
+    .result-box p { font-size: 18px; margin-bottom: 10px; }
+  </style>
 </head>
 <body>
-    <header>
-        <div class="logo">
-            <h1>JobiQ - CARE</h1>
-        </div>
-        <nav>
-            <a href="#">Get Started</a>
-            <a href="#">Explore</a>
-        </nav>
-    </header>
+  <header>
+    <div class="logo"><h1>JobiQ - CARE</h1></div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="#">Explore</a>
+    </nav>
+  </header>
 
-    <section class="intro">
-        <h2>Unlock Your Future Potential</h2>
-        <p>Discover personalized career paths that match your unique skills, interests, and passions with JodiQ - CARE.</p>
-        <button>Get Started</button>
-    </section>
+  <!-- Intro Page -->
+  <section class="intro" id="intro">
+    <h2>Unlock Your Future Potential</h2>
+    <p>Discover personalized career paths that match your unique skills, interests, and passions with JobiQ - CARE.</p>
+    <button class="btn" onclick="goToQuestions()">Get Started</button>
+  </section>
 
-    <section class="career-analysis">
-        <h3>Career Analysis & Recommendation Engine</h3>
-        <p>Tell us about yourself, and our AI will generate personalized career suggestions for you.</p>
+  <!-- Career Clusters -->
+  <section class="career-clusters">
+    <h3>Explore Career Clusters</h3>
+    <div class="clusters">
+      <div class="cluster"><img src="business-finance.jpg" alt="Business & Finance"><p>Business & Finance</p></div>
+      <div class="cluster"><img src="creative_arts.jpg" alt="Creative Arts"><p>Creative Arts</p></div>
+      <div class="cluster"><img src="technology.jpg" alt="Technology"><p>Technology</p></div>
+      <div class="cluster"><img src="healthcare.webp" alt="Healthcare"><p>Healthcare</p></div>
+      <div class="cluster"><img src="STEM.jpg" alt="STEM"><p>STEM</p></div>
+    </div>
+  </section>
 
-        <div class="input-fields">
-            <label for="skills">Your Skills</label>
-            <input type="text" id="skills" placeholder="e.g., Python, public speaking, project management">
+  <!-- Question Page -->
+  <section class="question-section" id="question-section">
+    <div class="question-box">
+      <h3>Tell Us About Yourself</h3>
+      <form id="careerForm" onsubmit="submitQuestions(event)">
+        <label>Your Skills</label>
+        <input type="text" name="skills" placeholder="e.g., Python, public speaking">
 
-            <label for="interests">Your Interests</label>
-            <input type="text" id="interests" placeholder="e.g., video games, sustainable farming, sci-fi novels">
+        <label>Your Interests</label>
+        <input type="text" name="interests" placeholder="e.g., design, teaching, robotics">
 
-            <label for="values">Your Values</label>
-            <input type="text" id="values" placeholder="e.g., creativity, stability, social impact">
+        <label>Your Values</label>
+        <input type="text" name="values" placeholder="e.g., creativity, teamwork, innovation">
 
-            <label for="location">Your Location</label>
-            <input type="text" id="location" placeholder="e.g., San Francisco, USA">
+        <label>Your Education Level</label>
+        <select name="education">
+          <option>High School</option>
+          <option>Bachelor’s Degree</option>
+          <option>Master’s Degree</option>
+          <option>PhD</option>
+          <option>Other</option>
+        </select>
 
-            <button id="get-recommendations">Get Recommendations</button>
-        </div>
-    </section>
+        <label>Preferred Work Environment</label>
+        <select name="workstyle">
+          <option>Office</option>
+          <option>Remote</option>
+          <option>Hybrid</option>
+          <option>Flexible</option>
+        </select>
 
-    <section class="career-clusters">
-        <h3>Explore Career Clusters</h3>
-        <div class="clusters">
-            <div class="cluster">
-                <img src="business-finance.jpg" alt="Business & Finance">
-                <p>Business & Finance</p>
-            </div>
-            <div class="cluster">
-                <img src="creative_arts.jpg" alt="Creative Arts">
-                <p>Creative Arts</p>
-            </div>
-            <div class="cluster">
-                <img src="technology.jpg" alt="Technology">
-                <p>Technology</p>
-            </div>
-            <div class="cluster">
-                <img src="healthcare.webp" alt="Healthcare">
-                <p>Healthcare</p>
-            </div>
-            <div class="cluster">
-                <img src="STEM.jpg" alt="STEM">
-                <p>STEM</p>
-            </div>
-        </div>
-    </section>
+        <label>Your Location</label>
+        <input type="text" name="location" placeholder="e.g., San Francisco, USA">
 
-    <footer>
-        <p>&copy; 2025 JobiQ CARE. All rights reserved.</p>
-    </footer>
+        <button class="btn" type="submit">Submit</button>
+      </form>
+    </div>
+  </section>
 
-    <script>
-        document.getElementById('get-recommendations').addEventListener('click', function() {
-            alert('Career recommendations will be generated based on the provided information!');
-        });
-    </script>
+  <!-- Loading Section -->
+  <section class="loading-section" id="loading-section">
+    <h2>Loading Your Suitable Job Interface...</h2>
+    <div class="spinner"></div>
+  </section>
+
+  <!-- Result Section -->
+  <section class="result-section" id="result-section">
+    <div class="result-box">
+      <h2>Your Career Suggestions</h2>
+      <p id="result-text">Based on your skills and interests, here are some career paths you may explore...</p>
+      <button class="btn" onclick="restart()">Restart</button>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 JobiQ CARE. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function goToQuestions() {
+      document.getElementById('intro').style.display = 'none';
+      document.getElementById('question-section').style.display = 'block';
+      window.scrollTo(0,0);
+    }
+
+    function submitQuestions(event) {
+      event.preventDefault();
+      document.getElementById('question-section').style.display = 'none';
+      document.getElementById('loading-section').style.display = 'block';
+
+      setTimeout(() => {
+        document.getElementById('loading-section').style.display = 'none';
+        document.getElementById('result-section').style.display = 'block';
+        document.getElementById('result-text').innerText = 
+          "You seem suited for Technology and Creative Arts sectors. Jobs like UI/UX Designer, Data Analyst, or Product Manager may fit your profile.";
+      }, 3000);
+    }
+
+    function restart() {
+      document.getElementById('result-section').style.display = 'none';
+      document.getElementById('intro').style.display = 'block';
+      window.scrollTo(0,0);
+    }
+  </script>
 </body>
 </html>
