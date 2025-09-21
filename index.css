@@ -521,3 +521,20 @@ footer {
     opacity: 0;
     cursor: pointer;
 }
+
+.file-info {
+  display: none;
+  margin-top: 10px;
+  font-size: 0.95rem;
+  color: #333;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.file-drop-area.active .file-info {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
