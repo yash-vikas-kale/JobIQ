@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload CV – JobIQ CARE</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+    <header class="container">
+        <div class="logo">JobIQ – CARE</div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="#">Explore</a>
+        </nav>
+    </header>
+
+    <main>
+        <section style="margin-top: 60px; margin-bottom: 0;">
+            <h2 style="font-size:2.3rem; color:#468189; margin-bottom: 0.5rem; font-family:'Poppins',sans-serif; font-weight:700;">
+                Let's Get Started
+            </h2>
+            <p style="font-size:1.18rem; color:#468189; opacity:0.85; max-width:600px; margin:0 auto 30px auto;">
+                Upload your CV or paste the text below. Our AI will analyze it to ask some clarifying questions before generating your personalized career path.
+            </p>
+        </section>
+
+        <section id="upload-section" class="container" style="padding-top:0;">
+            <div class="get-started-section">
+                <form id="cv-upload-form" enctype="multipart/form-data" method="post" style="width:100%;max-width:700px;">
+                    <div class="input-group">
+                        <label for="cv-file" style="margin-bottom: 15px;">
+                             <svg style="vertical-align:middle;margin-right:7px;" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" stroke="#468189" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M4 15v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2M12 5v10M17 8l-5-5-5 5"/></svg>
+                            Upload your CV
+                        </label>
+                        <div class="file-drop-area">
+                            <svg class="file-drop-icon" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                            <span class="file-drop-message">Drag and Drop</span>
+                            <span class="file-drop-or">or</span>
+                            <label for="cv-file" class="file-browse-button">Browse file</label>
+                            <input type="file" id="cv-file" name="cv-file" accept=".pdf,.doc,.docx" class="file-input-hidden">
+                        </div>
+                    </div>
+                    <div class="input-group" style="margin-top:25px;">
+                         <span style="font-size:0.98rem; opacity:0.8; display:block; margin-bottom:15px; text-align: center;">
+                            Alternatively, you can paste the text of your CV below.
+                        </span>
+                        <label for="cv-text">
+                            <svg style="vertical-align:middle;margin-right:7px;" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" stroke="#468189" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 7h8M8 11h8M8 15h4"/></svg>
+                            Paste your CV Text
+                        </label>
+                        <textarea id="cv-text" name="cv-text" placeholder="Paste the full text content of your CV here..." autocomplete="off"></textarea>
+                    </div>
+                    <button class="recommend-button" type="submit">Analyze CV</button>
+                </form>
+            </div>
+        </section>
+
+        <section id="team" class="container">
+            <h2>Our Team</h2>
+            <p>The minds behind JobIQ - CARE</p>
+            <div class="team-grid">
+                <div class="team-member">
+                    <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Yash Kale" class="team-dp">
+                    <div class="team-name">Yash Kale</div>
+                    <div class="team-role">Team Member</div>
+                </div>
+                <div class="team-member">
+                    <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Jitesh Choudhary" class="team-dp">
+                    <div class="team-name">Jitesh Choudhary</div>
+                    <div class="team-role">Team Member</div>
+                </div>
+                <div class="team-member">
+                    <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Ruturaj Borawake" class="team-dp">
+                    <div class="team-name">Ruturaj Borawake</div>
+                    <div class="team-role">Team Member</div>
+                </div>
+                <div class="team-member">
+                    <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Ayush Saraf" class="team-dp">
+                    <div class="team-name">Ayush Saraf</div>
+                    <div class="team-role">Team Member</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2025 JobIQ - CARE. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
