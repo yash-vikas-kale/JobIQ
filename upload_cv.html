@@ -1,63 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload CV – JobIQ CARE</title>
-    <link rel="stylesheet" href="index.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload CV – JobIQ CARE</title>
+  <link rel="stylesheet" href="index.css">
 </head>
 <body>
 
-    <header class="container">
-        <div class="logo">JobIQ – CARE</div>
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="#">Explore</a>
-        </nav>
-    </header>
+  <header class="container">
+    <div class="logo">JobIQ – CARE</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="#">Explore</a>
+    </nav>
+  </header>
 
-    <main>
-        <section style="margin-top: 60px; margin-bottom: 0;">
-            <h2 style="font-size:2.3rem; color:#468189; margin-bottom: 0.5rem; font-family:'Poppins',sans-serif; font-weight:700;">
-                Let's Get Started
-            </h2>
-            <p style="font-size:1.18rem; color:#468189; opacity:0.85; max-width:600px; margin:0 auto 30px auto;">
-                Upload your CV or paste the text below. Our AI will analyze it to ask some clarifying questions before generating your personalized career path.
-            </p>
-        </section>
+  <main>
+    <section style="margin-top: 60px; margin-bottom: 0;">
+      <h2 style="font-size:2.3rem; color:#468189; margin-bottom: 0.5rem; font-family:'Poppins',sans-serif; font-weight:700;">
+        Let's Get Started
+      </h2>
+      <p style="font-size:1.18rem; color:#468189; opacity:0.85; max-width:600px; margin:0 auto 30px auto;">
+        Upload your CV or paste the text below. Our AI will analyze it to ask some clarifying questions before generating your personalized career path.
+      </p>
+    </section>
 
-        <section id="upload-section" class="container" style="padding-top:0;">
-            <div class="get-started-section">
-                <form id="cv-upload-form" enctype="multipart/form-data" method="post" style="width:100%;max-width:700px;">
-                    <div class="input-group">
-                        <label for="cv-file" style="margin-bottom: 15px;">
-                             <svg style="vertical-align:middle;margin-right:7px;" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" stroke="#468189" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M4 15v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2M12 5v10M17 8l-5-5-5 5"/></svg>
-                            Upload your CV
-                        </label>
-                        <div class="file-drop-area">
-                            <svg class="file-drop-icon" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
-                            <span class="file-drop-message">Drag and Drop</span>
-                            <span class="file-drop-or">or</span>
-                            <label for="cv-file" class="file-browse-button">Browse file</label>
-                            <input type="file" id="cv-file" name="cv-file" accept=".pdf,.doc,.docx" class="file-input-hidden">
-                        </div>
-                    </div>
-                    <div class="input-group" style="margin-top:25px;">
-                         <span style="font-size:0.98rem; opacity:0.8; display:block; margin-bottom:15px; text-align: center;">
-                            Alternatively, you can paste the text of your CV below.
-                        </span>
-                        <label for="cv-text">
-                            <svg style="vertical-align:middle;margin-right:7px;" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" stroke="#468189" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 7h8M8 11h8M8 15h4"/></svg>
-                            Paste your CV Text
-                        </label>
-                        <textarea id="cv-text" name="cv-text" placeholder="Paste the full text content of your CV here..." autocomplete="off"></textarea>
-                    </div>
-                    <button class="recommend-button" type="submit">Analyze CV</button>
-                </form>
+    <section id="upload-section" class="container" style="padding-top:0;">
+      <div class="get-started-section">
+        <form id="cv-upload-form" enctype="multipart/form-data" method="post" style="width:100%;max-width:700px;">
+          <div class="input-group">
+            <label for="cv-file" style="margin-bottom: 15px;">
+              Upload your CV
+            </label>
+            <div class="file-drop-area">
+              <span class="file-drop-message">Drag and Drop</span>
+              <span class="file-drop-or">or</span>
+              <label for="cv-file" class="file-browse-button">Browse file</label>
+              <input type="file" id="cv-file" name="cv-file" accept=".pdf,.docx,.txt,.doc" class="file-input-hidden">
+              <!-- File name display -->
+              <div class="file-info"></div>
             </div>
-        </section>
+          </div>
+          <div class="input-group" style="margin-top:25px;">
+            <span style="font-size:0.98rem; opacity:0.8; display:block; margin-bottom:15px; text-align: center;">
+              Alternatively, you can paste the text of your CV below.
+            </span>
+            <label for="cv-text">Paste your CV Text</label>
+            <textarea id="cv-text" name="cv-text" placeholder="Paste the full text content of your CV here." autocomplete="off" style="white-space: pre-wrap;"></textarea>
+          </div>
+          <button class="recommend-button" type="submit">Analyze CV</button>
+        </form>
+      </div>
+    </section>
 
-        <section id="team" class="container">
+    <section id="team" class="container">
             <h2>Our Team</h2>
             <p>The minds behind JobIQ - CARE</p>
             <div class="team-grid">
@@ -83,11 +80,157 @@
                 </div>
             </div>
         </section>
-    </main>
+  </main>
 
-    <footer>
-        <p>© 2025 JobIQ - CARE. All rights reserved.</p>
-    </footer>
+  <footer>
+    <p>© 2025 JobIQ - CARE. All rights reserved.</p>
+  </footer>
 
+  <!-- Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.11.0/mammoth.browser.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.13.216/build/pdf.min.js"></script>
+  <script>
+    const pdfjsLib = window['pdfjs-dist/build/pdf'];
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@2.13.216/build/pdf.worker.min.js';
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+
+  <!-- Client-only script -->
+  <script>
+    (async () => {
+      const fileInput = document.getElementById('cv-file');
+      const dropArea = document.querySelector('.file-drop-area');
+      const fileInfo = document.querySelector('.file-info');
+      const textarea = document.getElementById('cv-text');
+
+      const setStatus = (t) => {
+        textarea.placeholder = t;
+      };
+
+      fileInput.addEventListener('change', e => {
+        if (e.target.files && e.target.files[0]) {
+          showFileInfo(e.target.files[0]);
+          handleFile(e.target.files[0]);
+        }
+      });
+
+      ['dragenter','dragover'].forEach(ev => {
+        dropArea.addEventListener(ev, e => { e.preventDefault(); dropArea.classList.add('dragover'); });
+      });
+      ['dragleave','drop'].forEach(ev => {
+        dropArea.addEventListener(ev, e => { e.preventDefault(); dropArea.classList.remove('dragover'); });
+      });
+      dropArea.addEventListener('drop', e => {
+        const f = (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0]) || null;
+        if (f) {
+          showFileInfo(f);
+          handleFile(f);
+        }
+      });
+
+      function showFileInfo(file) {
+        fileInfo.textContent = `📄 ${file.name}`;
+        dropArea.classList.add('active');
+      }
+
+      async function handleFile(file) {
+        try {
+          setStatus('Processing file — extracting text...');
+          const name = (file.name || '').toLowerCase();
+          const ext = name.split('.').pop();
+
+          if (ext === 'txt') {
+            textarea.value = await file.text();
+            setStatus('Loaded text file ✓');
+            return;
+          }
+
+          if (ext === 'docx') {
+            const ab = await file.arrayBuffer();
+            const result = await mammoth.extractRawText({arrayBuffer: ab});
+            textarea.value = result.value || '';
+            setStatus('Loaded DOCX ✓');
+            return;
+          }
+
+          if (ext === 'pdf') {
+            const text = await extractPdfText(file);
+            if (text && text.trim().length > 40) {
+              textarea.value = text;
+              setStatus('Loaded PDF (text) ✓');
+              return;
+            }
+            setStatus('PDF looks scanned — running OCR (may take a while)...');
+            const ocrText = await ocrPdfWithTesseract(file);
+            textarea.value = ocrText;
+            setStatus('Loaded PDF (OCR) ✓');
+            return;
+          }
+
+          if (ext === 'doc' || !['txt','docx','pdf'].includes(ext)) {
+            setStatus('This file type is not supported in browser. Please upload PDF, DOCX, or TXT.');
+            textarea.value = '';
+            return;
+          }
+
+          try {
+            textarea.value = await file.text();
+            setStatus('Loaded file with text fallback ✓');
+          } catch (err) {
+            setStatus('Could not read file in browser.');
+          }
+        } catch (err) {
+          console.error(err);
+          setStatus('Error extracting file. Check console.');
+        }
+      }
+
+      async function extractPdfText(file) {
+        try {
+          const arrayBuffer = await file.arrayBuffer();
+          const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
+          const pdf = await loadingTask.promise;
+          let fullText = '';
+          for (let i = 1; i <= pdf.numPages; i++) {
+            const page = await pdf.getPage(i);
+            const content = await page.getTextContent();
+            const strings = content.items.map(item => item.str || '');
+            fullText += strings.join(' ') + '\n';
+          }
+          return fullText;
+        } catch (e) {
+          console.warn('pdf text extraction failed', e);
+          return '';
+        }
+      }
+
+      async function ocrPdfWithTesseract(file) {
+        const arrayBuffer = await file.arrayBuffer();
+        const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
+        const pdf = await loadingTask.promise;
+
+        const worker = await Tesseract.createWorker(); // no logger
+
+        let fullText = '';
+        for (let i = 1; i <= pdf.numPages; i++) {
+          setStatus(`OCR: page ${i} / ${pdf.numPages} ...`);
+          const page = await pdf.getPage(i);
+          const viewport = page.getViewport({ scale: 1.5 });
+          const canvas = document.createElement('canvas');
+          canvas.width = Math.floor(viewport.width);
+          canvas.height = Math.floor(viewport.height);
+          const ctx = canvas.getContext('2d');
+
+          await page.render({ canvasContext: ctx, viewport }).promise;
+          const dataUrl = canvas.toDataURL('image/png');
+
+          const { data: { text } } = await worker.recognize(dataUrl);
+          fullText += text + '\n';
+        }
+        await worker.terminate();
+        return fullText;
+      }
+    })();
+  </script>
 </body>
 </html>
