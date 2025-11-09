@@ -92,5 +92,8 @@ Open `frontend/index.html` in your browser.
 
 ---
 
-## 🧑‍💻 Author
-**Yash Vikas Kale**
+## 👤 Team Member
+**Yash Kale**
+**Jitesh Choudhary**
+**Ruturaj Borawake**
+**Ayush Saraf**
