@@ -93,7 +93,7 @@ Open `frontend/index.html` in your browser.
 ---
 
 ## 👤 Team Member
-**Yash Kale**
-**Jitesh Choudhary**
-**Ruturaj Borawake**
-**Ayush Saraf**
+**Yash Kale** <br>
+**Jitesh Choudhary** <br>
+**Ruturaj Borawake** <br>
+**Ayush Saraf** <br>
