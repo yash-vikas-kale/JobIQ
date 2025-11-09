@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Upload CV – JobIQ CARE</title>
+  <link rel="stylesheet" href="index.css" />
+  <style>
+    #loading {
+      display: none;
+      font-size: 1rem;
+      margin-top: 12px;
+      color: #468189;
+      font-weight: 500;
+      animation: pulse 1.3s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="container">
+    <div class="logo">JobIQ – CARE</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="index.html#career-clusters">Explore</a>
+      <a href="#upload-section">Upload CV</a>
+      <a href="login.html" class="login-btn" id="login-btn">Login</a>
+
+      <!-- Profile Icon -->
+      <div class="profile-menu" id="profile-menu" style="display: none;">
+        <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+             id="profile-icon" alt="Profile"
+             style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;
+                    border: 2px solid #468189; cursor: pointer;" />
+        <div class="dropdown" id="profile-dropdown">
+          <button id="logout-btn">Logout</button>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section style="margin-top: 60px; margin-bottom: 0;">
+      <h2 style="font-size:2.3rem; color:#468189; margin-bottom: 0.5rem;
+                 font-family:'Poppins',sans-serif; font-weight:700;">
+        Let's Get Started
+      </h2>
+      <p style="font-size:1.18rem; color:#468189; opacity:0.85; max-width:600px;
+                margin:0 auto 30px auto;">
+        Upload your CV or paste the text below. Our AI will analyze it and ask smart, personalized questions.
+      </p>
+    </section>
+
+    <section id="upload-section" class="container" style="padding-top:0;">
+      <div class="get-started-section">
+        <form id="cv-upload-form" enctype="multipart/form-data" method="post"
+              style="width:100%;max-width:700px;">
+          <div class="input-group">
+            <label for="cv-file" style="margin-bottom: 15px;">Upload your CV</label>
+            <div class="file-drop-area">
+              <span class="file-drop-message">Drag and Drop</span>
+              <span class="file-drop-or">or</span>
+              <label for="cv-file" class="file-browse-button">Browse file</label>
+              <input type="file" id="cv-file" name="cv-file"
+                     accept=".pdf,.docx,.txt,.doc" class="file-input-hidden" />
+              <div class="file-info"></div>
+            </div>
+          </div>
+
+          <div class="input-group" style="margin-top:25px;">
+            <span style="font-size:0.98rem; opacity:0.8; display:block;
+                         margin-bottom:15px; text-align: center;">
+              Alternatively, you can paste your CV text below.
+            </span>
+            <label for="cv-text">Paste your CV Text</label>
+            <textarea id="cv-text" name="cv-text"
+                      placeholder="Paste the full text content of your CV here."
+                      autocomplete="off" style="white-space: pre-wrap;"></textarea>
+          </div>
+
+          <button class="recommend-button" type="button" onclick="analyzeCV()">Analyze CV</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="container">
+      <h2>Our Team</h2>
+      <p>The minds behind JobIQ - CARE</p>
+      <div class="team-grid">
+        <div class="team-member">
+          <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+               alt="Yash Kale" class="team-dp" />
+          <div class="team-name">Yash Kale</div>
+          <div class="team-role">Team Member</div>
+        </div>
+        <div class="team-member">
+          <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+               alt="Jitesh Choudhary" class="team-dp" />
+          <div class="team-name">Jitesh Choudhary</div>
+          <div class="team-role">Team Member</div>
+        </div>
+        <div class="team-member">
+          <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+               alt="Ruturaj Borawake" class="team-dp" />
+          <div class="team-name">Ruturaj Borawake</div>
+          <div class="team-role">Team Member</div>
+        </div>
+        <div class="team-member">
+          <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+               alt="Ayush Saraf" class="team-dp" />
+          <div class="team-name">Ayush Saraf</div>
+          <div class="team-role">Team Member</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 JobIQ - CARE. All rights reserved.</p>
+  </footer>
+
+  <!-- Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.11.0/mammoth.browser.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.13.216/build/pdf.min.js"></script>
+  <script>
+    const pdfjsLib = window['pdfjs-dist/build/pdf'];
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+      'https://cdn.jsdelivr.net/npm/pdfjs-dist@2.13.216/build/pdf.worker.min.js';
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+
+  <!-- File Upload + Text Extraction -->
+  <script>
+    (async () => {
+      const fileInput = document.getElementById('cv-file');
+      const dropArea = document.querySelector('.file-drop-area');
+      const fileInfo = document.querySelector('.file-info');
+      const textarea = document.getElementById('cv-text');
+      const setStatus = (t) => { textarea.placeholder = t; };
+
+      fileInput.addEventListener('change', e => {
+        if (e.target.files && e.target.files[0]) {
+          showFileInfo(e.target.files[0]);
+          handleFile(e.target.files[0]);
+        }
+      });
+
+      ['dragenter', 'dragover'].forEach(ev => {
+        dropArea.addEventListener(ev, e => { e.preventDefault(); dropArea.classList.add('dragover'); });
+      });
+      ['dragleave', 'drop'].forEach(ev => {
+        dropArea.addEventListener(ev, e => { e.preventDefault(); dropArea.classList.remove('dragover'); });
+      });
+
+      dropArea.addEventListener('drop', e => {
+        const f = (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0]) || null;
+        if (f) { showFileInfo(f); handleFile(f); }
+      });
+
+      function showFileInfo(file) {
+        fileInfo.textContent = `📄 ${file.name}`;
+        dropArea.classList.add('active');
+      }
+
+      async function handleFile(file) {
+        try {
+          setStatus('Processing file — extracting text...');
+          const ext = (file.name || '').split('.').pop().toLowerCase();
+
+          if (ext === 'txt') {
+            textarea.value = await file.text();
+            setStatus('Loaded text file ✓');
+            return;
+          }
+          if (ext === 'docx') {
+            const ab = await file.arrayBuffer();
+            const result = await mammoth.extractRawText({ arrayBuffer: ab });
+            textarea.value = result.value || '';
+            setStatus('Loaded DOCX ✓');
+            return;
+          }
+          if (ext === 'pdf') {
+            const text = await extractPdfText(file);
+            if (text && text.trim().length > 40) {
+              textarea.value = text;
+              setStatus('Loaded PDF ✓');
+              return;
+            }
+            setStatus('Running OCR...');
+            const ocrText = await ocrPdfWithTesseract(file);
+            textarea.value = ocrText;
+            setStatus('Loaded Scanned PDF ✓');
+            return;
+          }
+
+          setStatus('Unsupported file type. Upload PDF, DOCX, or TXT.');
+          textarea.value = '';
+        } catch (err) {
+          console.error(err);
+          setStatus('Error extracting file.');
+        }
+      }
+
+      async function extractPdfText(file) {
+        try {
+          const arrayBuffer = await file.arrayBuffer();
+          const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+          let fullText = '';
+          for (let i = 1; i <= pdf.numPages; i++) {
+            const page = await pdf.getPage(i);
+            const content = await page.getTextContent();
+            const strings = content.items.map(item => item.str || '');
+            fullText += strings.join(' ') + '\n';
+          }
+          return fullText;
+        } catch (e) {
+          console.warn('pdf text extraction failed', e);
+          return '';
+        }
+      }
+
+      async function ocrPdfWithTesseract(file) {
+        const arrayBuffer = await file.arrayBuffer();
+        const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+        const worker = await Tesseract.createWorker();
+        let fullText = '';
+        for (let i = 1; i <= pdf.numPages; i++) {
+          const page = await pdf.getPage(i);
+          const viewport = page.getViewport({ scale: 1.5 });
+          const canvas = document.createElement('canvas');
+          canvas.width = Math.floor(viewport.width);
+          canvas.height = Math.floor(viewport.height);
+          const ctx = canvas.getContext('2d');
+          await page.render({ canvasContext: ctx, viewport }).promise;
+          const dataUrl = canvas.toDataURL('image/png');
+          const { data: { text } } = await worker.recognize(dataUrl);
+          fullText += text + '\n';
+        }
+        await worker.terminate();
+        return fullText;
+      }
+    })();
+  </script>
+
+  <!-- ⚡ Instant Redirect + Background CV Analysis -->
+  <script>
+    async function analyzeCV() {
+      const textarea = document.getElementById('cv-text');
+      const text = textarea.value.trim();
+      if (!text) {
+        alert("Please upload or paste your CV first!");
+        return;
+      }
+
+      // Save CV locally and redirect immediately
+      localStorage.setItem("cv_text", text);
+      window.location.href = "analyze.html";
+
+      // Background CV analysis
+      try {
+        const res = await fetch("http://127.0.0.1:8000/analyze_cv", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ text })
+        });
+
+        if (!res.ok) throw new Error("Failed to analyze CV");
+        const data = await res.json();
+        localStorage.setItem("cv_analysis", JSON.stringify(data));
+      } catch (err) {
+        console.error("❌ Error analyzing CV:", err);
+        localStorage.setItem("cv_analysis", JSON.stringify({ error: true }));
+      }
+    }
+  </script>
+
+  <!-- Auth Logic -->
+  <script>
+    const isLoggedIn = localStorage.getItem('loggedIn') === 'true';
+    const loginBtn = document.getElementById('login-btn');
+    const profileMenu = document.getElementById('profile-menu');
+    const profileIcon = document.getElementById('profile-icon');
+    const logoutBtn = document.getElementById('logout-btn');
+
+    if (isLoggedIn) {
+      loginBtn.style.display = 'none';
+      profileMenu.style.display = 'inline-block';
+    } else {
+      loginBtn.style.display = 'inline-block';
+      profileMenu.style.display = 'none';
+    }
+
+    profileIcon.addEventListener('click', () => {
+      profileMenu.classList.toggle('show');
+    });
+
+    logoutBtn.addEventListener('click', () => {
+      localStorage.removeItem('loggedIn');
+      window.location.reload();
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+      if (!isLoggedIn) window.location.href = "login.html";
+    });
+  </script>
+
+</body>
+</html>

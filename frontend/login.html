@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login / Signup – JobIQ CARE</title>
+  <link rel="stylesheet" href="index.css" />
+  <style>
+    body {
+      background-color: #f3f8f7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .auth-card {
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+      width: 400px;
+      padding: 30px;
+      text-align: center;
+      animation: fadeIn 0.6s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .auth-toggle {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 20px;
+    }
+
+    .auth-toggle button {
+      background: none;
+      border: none;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #468189;
+      cursor: pointer;
+      padding-bottom: 6px;
+      border-bottom: 3px solid transparent;
+      transition: all 0.3s ease;
+    }
+
+    .auth-toggle button.active {
+      border-color: #468189;
+    }
+
+    form {
+      display: none;
+      flex-direction: column;
+      gap: 15px;
+      text-align: left;
+    }
+
+    form.active {
+      display: flex;
+    }
+
+    label {
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: #333;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    input:focus {
+      border-color: #468189;
+    }
+
+    .btn {
+      background-color: #468189;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #3a6e73;
+    }
+
+    .forgot-link {
+      text-align: right;
+      font-size: 0.9rem;
+      color: #468189;
+      cursor: pointer;
+      text-decoration: underline;
+      margin-top: -10px;
+    }
+
+    .footer-text {
+      margin-top: 15px;
+      font-size: 0.85rem;
+      color: #777;
+    }
+
+    /* 🌟 Toast Notification */
+    #toast-container {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .toast {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #fff;
+      border-left: 6px solid #468189;
+      border-radius: 12px;
+      padding: 12px 18px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      font-weight: 500;
+      min-width: 250px;
+      color: #333;
+      animation: slideIn 0.5s ease, fadeOut 0.5s ease 2.5s forwards;
+    }
+
+    .toast.success { border-left-color: #468189; }
+    .toast.error { border-left-color: #e74c3c; }
+
+    .toast-icon {
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      background-color: #4681891a;
+      border-radius: 50%;
+    }
+
+    .toast.error .toast-icon {
+      background-color: #e74c3c1a;
+    }
+
+    @keyframes slideIn {
+      from { transform: translateX(120%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    @keyframes fadeOut {
+      to { opacity: 0; transform: translateX(100%); }
+    }
+
+    /* 🔐 OTP Modal */
+    #otp-modal {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    #otp-modal .modal-content {
+      background: #fff;
+      padding: 25px;
+      border-radius: 12px;
+      width: 350px;
+      text-align: center;
+      animation: scaleIn 0.3s ease;
+    }
+
+    @keyframes scaleIn {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    /* Forgot Password Modal */
+    #forgot-modal {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      width: 350px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="auth-card">
+    <h2 style="color:#468189; font-weight:700; margin-bottom:10px;">Welcome to JobIQ CARE</h2>
+
+    <div class="auth-toggle">
+      <button id="login-tab" class="active">Login</button>
+      <button id="signup-tab">Sign Up</button>
+    </div>
+
+    <!-- LOGIN -->
+    <form id="login-form" class="active">
+      <label for="login-email">Email</label>
+      <input type="email" id="login-email" placeholder="Enter your email" required />
+      
+      <label for="login-password">Password</label>
+      <input type="password" id="login-password" placeholder="Enter your password" required />
+      
+      <div class="forgot-link" onclick="openForgotModal()">Forgot Password?</div>
+      <button type="button" class="btn" onclick="loginUser()">Login</button>
+    </form>
+
+    <!-- SIGNUP -->
+    <form id="signup-form">
+      <label for="signup-name">Full Name</label>
+      <input type="text" id="signup-name" placeholder="Enter your name" required />
+      
+      <label for="signup-email">Email</label>
+      <input type="email" id="signup-email" placeholder="Enter your email" required />
+
+      <label for="signup-password">Password</label>
+      <input type="password" id="signup-password" placeholder="Create a password" required />
+
+      <button type="button" class="btn" onclick="sendOTP()">Send OTP</button>
+    </form>
+
+    <div class="footer-text">© 2025 JobIQ CARE</div>
+  </div>
+
+  <!-- 🔔 Toast Container -->
+  <div id="toast-container"></div>
+
+  <!-- OTP Modal -->
+  <div id="otp-modal">
+    <div class="modal-content">
+      <h3 style="color:#468189;">Enter OTP</h3>
+      <p style="color:#555;">We’ve sent a verification code to your email.</p>
+      <input type="text" id="otp" placeholder="Enter OTP" />
+      <button class="btn" onclick="verifyOTP()">Verify & Create Account</button>
+      <p style="margin-top:10px; color:#777; cursor:pointer;" onclick="closeOTPModal()">Cancel</p>
+    </div>
+  </div>
+
+  <!-- Forgot Password Modal -->
+  <div id="forgot-modal">
+    <div class="modal-content">
+      <h3 style="color:#468189;">Reset Password</h3>
+      <input type="email" id="forgot-email" placeholder="Enter your registered email" />
+      <button class="btn" onclick="sendResetOTP()">Send OTP</button>
+
+      <div class="otp-section" id="reset-otp-section">
+        <input type="text" id="reset-otp" placeholder="Enter OTP" />
+        <input type="password" id="new-password" placeholder="Enter new password" />
+        <button class="btn" onclick="verifyReset()">Reset Password</button>
+      </div>
+      <p style="margin-top:10px; color:#777; cursor:pointer;" onclick="closeForgotModal()">Cancel</p>
+    </div>
+  </div>
+
+  <script>
+  // 🌟 Toast Function
+  function showToast(message, success = true) {
+    const container = document.getElementById("toast-container");
+    const toast = document.createElement("div");
+    toast.className = `toast ${success ? "success" : "error"}`;
+    toast.innerHTML = `<div class="toast-icon">${success ? "✔" : "✖"}</div><span>${message}</span>`;
+    container.appendChild(toast);
+    setTimeout(() => toast.remove(), 3000);
+  }
+
+  // Toggle Tabs
+  const loginTab = document.getElementById("login-tab");
+  const signupTab = document.getElementById("signup-tab");
+  const loginForm = document.getElementById("login-form");
+  const signupForm = document.getElementById("signup-form");
+
+  loginTab.onclick = () => {
+    loginTab.classList.add("active");
+    signupTab.classList.remove("active");
+    loginForm.classList.add("active");
+    signupForm.classList.remove("active");
+  };
+  signupTab.onclick = () => {
+    signupTab.classList.add("active");
+    loginTab.classList.remove("active");
+    signupForm.classList.add("active");
+    loginForm.classList.remove("active");
+  };
+
+  // LOGIN
+  async function loginUser() {
+    const email = document.getElementById("login-email").value;
+    const password = document.getElementById("login-password").value;
+    if (!email || !password) return showToast("Please enter both email and password", false);
+
+    const res = await fetch("http://127.0.0.1:8000/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    });
+    const data = await res.json();
+    if (res.ok) {
+      localStorage.setItem("loggedIn", "true");
+      showToast("Login Successful!", true);
+      setTimeout(() => (window.location.href = "index.html"), 1500);
+    } else showToast(data.detail || "Login Failed", false);
+  }
+
+  // Enter key for login
+  loginForm.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      loginUser();
+    }
+  });
+
+  // SIGNUP
+  async function sendOTP() {
+    const name = signupForm.querySelector("#signup-name").value;
+    const email = signupForm.querySelector("#signup-email").value;
+    const password = signupForm.querySelector("#signup-password").value;
+    if (!name || !email || !password) return showToast("Fill all fields!", false);
+
+    const res = await fetch("http://127.0.0.1:8000/signup", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, email, password }),
+    });
+
+    if (res.ok) {
+      showToast("OTP Sent! Check your email.", true);
+      openOTPModal();
+    } else showToast("Signup Failed", false);
+  }
+
+  function openOTPModal() {
+    document.getElementById("otp-modal").style.display = "flex";
+  }
+  function closeOTPModal() {
+    document.getElementById("otp-modal").style.display = "none";
+  }
+
+  async function verifyOTP() {
+    const email = document.getElementById("signup-email").value;
+    const otp = document.getElementById("otp").value;
+    if (!otp) return showToast("Please enter OTP", false);
+
+    const res = await fetch("http://127.0.0.1:8000/verify_otp", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, otp }),
+    });
+    if (res.ok) {
+      showToast("Account Verified!", true);
+      closeOTPModal();
+      setTimeout(() => location.reload(), 1500);
+    } else showToast("Invalid OTP", false);
+  }
+
+  // Forgot Password
+  function openForgotModal() {
+    document.getElementById("forgot-modal").style.display = "flex";
+  }
+  function closeForgotModal() {
+    document.getElementById("forgot-modal").style.display = "none";
+  }
+
+  async function sendResetOTP() {
+    const email = document.getElementById("forgot-email").value;
+    if (!email) return showToast("Enter your email", false);
+
+    const res = await fetch("http://127.0.0.1:8000/forgot_password", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email }),
+    });
+    if (res.ok) {
+      document.getElementById("reset-otp-section").classList.add("active");
+      showToast("Reset OTP Sent!", true);
+    } else showToast("Failed to send OTP", false);
+  }
+
+  async function verifyReset() {
+    const email = document.getElementById("forgot-email").value;
+    const otp = document.getElementById("reset-otp").value;
+    const newPassword = document.getElementById("new-password").value;
+
+    const res = await fetch("http://127.0.0.1:8000/reset_password", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, otp, new_password: newPassword }),
+    });
+    if (res.ok) {
+      showToast("Password Reset Successful!", true);
+      setTimeout(closeForgotModal, 2000);
+    } else showToast("Reset Failed", false);
+  }
+  </script>
+</body>
+</html>

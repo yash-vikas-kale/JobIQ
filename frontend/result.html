@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Results – JobIQ CARE</title>
+  <link rel="stylesheet" href="index.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root {
+      --primary-color: #468189;
+      --accent-color: #f5cb5c;
+      --shadow-color: rgba(0, 0, 0, 0.1);
+      --border-color: rgba(0, 0, 0, 0.08);
+    }
+
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #e0f4f1 0%, #f2e79b 100%);
+      color: var(--primary-color);
+    }
+
+    main {
+      padding: 100px 20px 40px;
+      max-width: 1000px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .results-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      margin-top: 25px;
+    }
+
+    /* 🎴 Job Card */
+    .job-card {
+      background: linear-gradient(145deg, #ffffff, #f7f9f9);
+      border-radius: 18px;
+      padding: 24px;
+      text-align: left;
+      box-shadow: 0 6px 20px var(--shadow-color);
+      border: 1.5px solid var(--border-color);
+      cursor: pointer;
+      transition: all 0.35s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .job-card:hover {
+      transform: translateY(-5px) scale(1.01);
+      box-shadow: 0 10px 25px rgba(70, 129, 137, 0.2);
+    }
+
+    .job-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .job-header h3 {
+      margin: 0;
+      color: var(--primary-color);
+      font-weight: 700;
+      font-size: 1.4rem;
+    }
+
+    /* 🏷️ Match Badge */
+    .match {
+      font-weight: 700;
+      padding: 7px 12px;
+      border-radius: 10px;
+      color: #fff;
+      background: linear-gradient(135deg, #6fb1b5 0%, #468189 100%);
+      font-size: 0.95rem;
+    }
+
+    .match[data-level="high"] {
+      background: linear-gradient(135deg, #00c49a, #009f7a);
+    }
+
+    .match[data-level="medium"] {
+      background: linear-gradient(135deg, #f5b700, #f0a500);
+    }
+
+    .match[data-level="low"] {
+      background: linear-gradient(135deg, #e84545, #c02424);
+    }
+
+    /* 🔽 Job details (animated slide) */
+    .details-wrapper {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.6s ease, padding 0.3s ease;
+    }
+
+    .details {
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .job-card.open .details-wrapper {
+      max-height: 400px;
+      padding-top: 12px;
+    }
+
+    .job-card.open .details {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .skill-tag {
+      background: rgba(70, 129, 137, 0.15);
+      color: var(--primary-color);
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .expand-icon {
+      position: absolute;
+      right: 24px;
+      bottom: 22px;
+      font-size: 22px;
+      color: #468189;
+      transition: transform 0.3s ease;
+    }
+
+    .job-card.open .expand-icon {
+      transform: rotate(180deg);
+    }
+
+    /* 🔄 Loading Overlay */
+    #loading-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(255,255,255,0.95);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 9999;
+    }
+
+    .spinner {
+      border: 5px solid #f3f3f3;
+      border-top: 5px solid #468189;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    #loading-text {
+      color: #468189;
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-top: 15px;
+    }
+
+    footer {
+      border-top: 1.5px solid var(--border-color);
+      margin-top: 60px;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    .dropdown {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 45px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      z-index: 1000;
+    }
+
+    .dropdown.show {
+      display: block;
+    }
+
+    .dropdown button {
+      background: none;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+      width: 100%;
+      text-align: left;
+      color: #468189;
+      font-weight: 600;
+    }
+
+    .dropdown button:hover {
+      background: rgba(70, 129, 137, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <header class="container">
+    <div class="logo">JobIQ – CARE</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="index.html#career-clusters">Explore</a>
+      <a href="upload_cv.html">Upload CV</a>
+      <a href="login.html" class="login-btn" id="login-btn">Login</a>
+
+      <div class="profile-menu" id="profile-menu" style="display:none; position:relative;">
+        <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+             id="profile-icon"
+             alt="Profile"
+             style="width:40px;height:40px;border-radius:50%;border:2px solid #468189;cursor:pointer;">
+        <div class="dropdown" id="profile-dropdown">
+          <button id="logout-btn">Logout</button>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <div id="loading-overlay">
+    <div class="spinner"></div>
+    <div id="loading-text">Generating your personalized career recommendations...</div>
+  </div>
+
+  <main id="main-content" style="display:none;">
+    <section>
+      <h2 style="font-size:2.1rem; color:#468189; margin-bottom:4px; font-weight:700;">
+        🎯 Your Job Recommendations
+      </h2>
+      <p style="font-size:1.05rem; color:#468189; opacity:0.85; max-width:800px; margin:0 auto 18px auto;">
+        Based on your CV and answers, here are roles that match your profile. Click a card to view more details.
+      </p>
+    </section>
+
+    <section class="container" style="padding-top:0; max-width:900px;">
+      <div id="job-container" class="results-grid">
+        <p>Loading recommendations...</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 JobIQ - CARE. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const isLoggedIn = localStorage.getItem('loggedIn') === 'true';
+    const loginBtn = document.getElementById('login-btn');
+    const profileMenu = document.getElementById('profile-menu');
+    const dropdown = document.getElementById('profile-dropdown');
+
+    if (isLoggedIn) {
+      loginBtn.style.display = 'none';
+      profileMenu.style.display = 'inline-block';
+    }
+
+    document.getElementById('profile-icon')?.addEventListener('click', () => {
+      dropdown.classList.toggle('show');
+    });
+
+    document.getElementById('logout-btn')?.addEventListener('click', () => {
+      localStorage.removeItem('loggedIn');
+      window.location.href = 'login.html';
+    });
+
+    document.addEventListener("DOMContentLoaded", async () => {
+      const cvData = JSON.parse(localStorage.getItem("cvData"));
+      const answers = JSON.parse(localStorage.getItem("userAnswers"));
+      const container = document.getElementById("job-container");
+      const loader = document.getElementById("loading-overlay");
+      const main = document.getElementById("main-content");
+
+      if (!cvData || !answers) {
+        container.innerHTML = `<p style='color:red'>⚠️ Missing CV or Answers. Please complete analysis first.</p>`;
+        return;
+      }
+
+      try {
+        const res = await fetch("http://127.0.0.1:8000/generate_result", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            cvData: cvData,
+            answers: answers
+          })
+        });
+
+        if (!res.ok) throw new Error("Backend Error");
+        const data = await res.json();
+        renderJobs(data.recommendations || []);
+      } catch (err) {
+        console.error(err);
+        container.innerHTML = `<p style='color:red'>❌ Error loading job recommendations. Ensure backend is running.</p>`;
+      } finally {
+        loader.style.opacity = 0;
+        setTimeout(() => {
+          loader.style.display = "none";
+          main.style.display = "block";
+        }, 400);
+      }
+    });
+
+    function renderJobs(jobs) {
+      const container = document.getElementById("job-container");
+      container.innerHTML = "";
+
+      if (!jobs.length) {
+        container.innerHTML = `<div class="job-card"><p>No suitable roles found. Try refining your answers or CV.</p></div>`;
+        return;
+      }
+
+      jobs.forEach((job) => {
+        const match = job.match_score || job.match || 0;
+        const level = match >= 75 ? "high" : match >= 50 ? "medium" : "low";
+
+        const card = document.createElement("div");
+        card.className = "job-card";
+        card.innerHTML = `
+          <div class="job-header">
+            <h3>${job.title || "Unknown Role"}</h3>
+            <div class="match" data-level="${level}">${match}% Match</div>
+          </div>
+          <p><strong>Company:</strong> ${job.company || "N/A"}</p>
+          <p>${job.reason || job.description || "An exciting opportunity based on your skills."}</p>
+          <div class="details-wrapper">
+            <div class="details">
+              <p><strong>Skills to Learn:</strong></p>
+              <div class="skills">
+                ${(job.skills_to_learn || [])
+                  .map((s) => `<span class='skill-tag'>${s}</span>`)
+                  .join("")}
+              </div>
+              <p style="margin-top:12px;"><strong>Salary Expectation:</strong> ${job.salary || "10–15 LPA"}</p>
+            </div>
+          </div>
+          <div class="expand-icon">▼</div>
+        `;
+
+        card.addEventListener("click", () => {
+          const isOpen = card.classList.contains("open");
+          document.querySelectorAll(".job-card").forEach((c) => c.classList.remove("open"));
+          if (!isOpen) card.classList.add("open");
+        });
+
+        container.appendChild(card);
+      });
+    }
+  </script>
+</body>
+</html>

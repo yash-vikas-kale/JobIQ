@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobIQ - CARE</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+    <header class="container">
+  <div class="logo">JobIQ – CARE</div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="#career-clusters">Explore</a>
+    <a href="upload_cv.html">Upload CV</a>
+    <a href="login.html" class="login-btn" id="login-btn">Login</a>
+
+    <div class="profile-menu" id="profile-menu" style="display: none;">
+      <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" id="profile-icon" alt="Profile" 
+      style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid #468189; cursor: pointer;"/>
+      <div class="dropdown" id="profile-dropdown">
+        <button id="logout-btn">Logout</button>
+      </div>
+    </div>
+  </nav>
+</header>
+
+    <main>
+        <section id="hero" class="hero-fullscreen">
+            <h1>Unlock Your Future Potential.</h1>
+            <p>Discover personalized career paths that match your unique skills, interests, and passions with JobIQ - CARE.</p>
+            <a href="upload_cv.html" class="cta-button" style="text-decoration:none;display:inline-block;">Get Started &rarr;</a>
+        </section>
+
+        <section id="how-it-works">
+            <h2 style="color: #468189;">How It Works</h2>
+            <p style="color: #468189; font-size: 1.2rem; max-width: 800px; margin: 0 auto;">
+                Our process is simple. You provide your CV, our AI analyzes it, we ask a few clarifying questions to understand your goals, and then we deliver personalized career recommendations complete with skill-gap analysis and salary insights.
+            </p>
+        </section>
+
+        <section id="career-clusters" class="container">
+            <h2>Explore Career Clusters</h2>
+            <p>Browse careers grouped by industry or field for broader exploration.</p>
+            <div class="clusters-grid">
+                <div class="cluster-card">
+                    <img src="https://images.unsplash.com/photo-1593642634315-48f5414c3ad9?q=80&w=2000" alt="Business & Finance">
+                    <div class="card-header">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path><rect width="20" height="14" x="2" y="6" rx="2"></rect></svg>
+                        <h3>Business &<br>Finance</h3>
+                    </div>
+                    <p>Explore various roles and opportunities in the business & finance sector.</p>
+                </div>
+                <div class="cluster-card">
+                    <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?q=80&w=2000" alt="Creative Arts">
+                    <div class="card-header">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"></circle><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"></circle><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"></circle><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"></circle><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"></path></svg>
+                        <h3>Creative<br>Arts</h3>
+                    </div>
+                    <p>Explore various roles and opportunities in the creative arts sector.</p>
+                </div>
+                <div class="cluster-card">
+                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2000" alt="Technology">
+                    <div class="card-header">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                        <h3>Technology</h3>
+                    </div>
+                    <p>Explore various roles and opportunities in the technology sector.</p>
+                </div>
+                <div class="cluster-card">
+                    <img src="https://images.unsplash.com/photo-1538108149393-fbbd81895907?q=80&w=2000" alt="Healthcare">
+                    <div class="card-header">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path><path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"></path></svg>
+                        <h3>Healthcare</h3>
+                    </div>
+                    <p>Explore various roles and opportunities in the healthcare sector.</p>
+                </div>
+                <div class="cluster-card">
+                    <img src="https://images.unsplash.com/photo-1507413245164-6160d8298b31?q=80&w=2000" alt="STEM">
+                    <div class="card-header">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"></circle><path d="M20.2 20.2c2.04-2.03.02-7.36-4.5-11.9-4.54-4.52-9.87-6.54-11.9-4.5-2.04 2.03-.02 7.36 4.5 11.9 4.54 4.52 9.87 6.54 11.9 4.5Z"></path><path d="M15.7 15.7c4.52-4.54 6.54-9.87 4.5-11.9-2.03-2.04-7.36-.02-11.9 4.5-4.52 4.54-6.54 9.87-4.5 11.9 2.03 2.04 7.36.02 11.9-4.5Z"></path></svg>
+                        <h3>STEM</h3>
+                    </div>
+                    <p>Explore various roles and opportunities in the stem sector.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="team" class="container">
+            <h2>Our Team</h2>
+            <p>The minds behind JobIQ - CARE</p>
+            <div class="team-grid">
+                <div class="team-member">
+                    <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Yash Kale" class="team-dp">
+                    <div class="team-name">Yash Kale</div>
+                    <div class="team-role">Team Member</div>
+                </div>
+                <div class="team-member">
+                    <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Jitesh Choudhary" class="team-dp">
+                    <div class="team-name">Jitesh Choudhary</div>
+                    <div class="team-role">Team Member</div>
+                </div>
+                <div class="team-member">
+                    <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Ruturaj Borawake" class="team-dp">
+                    <div class="team-name">Ruturaj Borawake</div>
+                    <div class="team-role">Team Member</div>
+                </div>
+                <div class="team-member">
+                    <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Ayush Saraf" class="team-dp">
+                    <div class="team-name">Ayush Saraf</div>
+                    <div class="team-role">Team Member</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2025 JobIQ - CARE. All rights reserved.</p>
+    </footer>
+<script>
+  // Simulate login status using localStorage
+  const isLoggedIn = localStorage.getItem('loggedIn') === 'true';
+  const loginBtn = document.getElementById('login-btn');
+  const profileMenu = document.getElementById('profile-menu');
+  const profileIcon = document.getElementById('profile-icon');
+  const logoutBtn = document.getElementById('logout-btn');
+
+  if (isLoggedIn) {
+    // Hide login button, show profile icon
+    loginBtn.style.display = 'none';
+    profileMenu.style.display = 'inline-block';
+  } else {
+    loginBtn.style.display = 'inline-block';
+    profileMenu.style.display = 'none';
+  }
+
+  // Toggle dropdown on profile click
+  profileIcon.addEventListener('click', () => {
+    profileMenu.classList.toggle('show');
+  });
+
+  // Logout
+  logoutBtn.addEventListener('click', () => {
+    localStorage.removeItem('loggedIn');
+    window.location.reload();
+  });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const isLoggedIn = localStorage.getItem("loggedIn");
+
+  if (!isLoggedIn) {
+    // User not logged in → redirect to login page
+    window.location.href = "login.html";
+  } else {
+    // Hide the "Login" button, show "Logout" instead
+    const loginBtn = document.getElementById("loginBtn");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    if (loginBtn) loginBtn.style.display = "none";
+    if (logoutBtn) logoutBtn.style.display = "inline-block";
+  }
+});
+
+</script>
+
+</body>
+</html>

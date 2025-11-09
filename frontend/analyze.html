@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Analyze CV – JobIQ CARE</title>
+  <link rel="stylesheet" href="index.css" />
+  <style>
+    main {
+      padding: 100px 20px 40px;
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    h2 {
+      color: #468189;
+      font-weight: 700;
+      margin-bottom: 10px;
+      font-size: 2rem;
+    }
+
+    p.subtitle {
+      font-size: 1.1rem;
+      color: #468189;
+      opacity: 0.85;
+      margin-bottom: 30px;
+    }
+
+    /* Question cards */
+    .question-card {
+      background: #ffffff;
+      border-radius: 15px;
+      padding: 22px;
+      margin: 18px 0;
+      box-shadow: 0 3px 12px rgba(70, 129, 137, 0.15);
+      text-align: left;
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
+      border: 1px solid rgba(70, 129, 137, 0.1);
+    }
+
+    .question-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(70, 129, 137, 0.2);
+    }
+
+    .question-card label {
+      font-weight: 600;
+      color: #468189;
+      display: block;
+      margin-bottom: 10px;
+      font-size: 1.05rem;
+      line-height: 1.4;
+    }
+
+    .question-card textarea {
+      width: 100%;
+      border-radius: 12px;
+      border: 1.8px solid #cfd8dc;
+      padding: 12px;
+      resize: vertical;
+      min-height: 90px;
+      font-family: "Poppins", sans-serif;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      background-color: #f9fbfb;
+      color: #333;
+      transition: all 0.25s ease;
+    }
+
+    .question-card textarea:focus {
+      outline: none;
+      border-color: #468189;
+      box-shadow: 0 0 6px rgba(70, 129, 137, 0.25);
+      background-color: #fff;
+    }
+
+    .btn {
+      background-color: #468189;
+      color: white;
+      border: none;
+      padding: 14px 30px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.3s;
+      margin-top: 25px;
+      font-weight: 600;
+    }
+
+    .btn:hover {
+      background-color: #3a6e73;
+    }
+
+    /* Loading Overlay */
+    #loading-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(255,255,255,0.95);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 9999;
+      transition: opacity 0.4s ease;
+    }
+
+    .spinner {
+      border: 5px solid #f3f3f3;
+      border-top: 5px solid #468189;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    #loading-text {
+      color: #468189;
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-top: 15px;
+    }
+
+    footer {
+      background: #468189;
+      color: white;
+      text-align: center;
+      padding: 15px 0;
+      margin-top: 50px;
+    }
+
+    /* Profile Dropdown Fix */
+    .profile-menu {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 45px;
+      background: #ffffff;
+      border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      z-index: 999;
+      min-width: 120px;
+      padding: 5px 0;
+    }
+
+    .dropdown.show {
+      display: block;
+    }
+
+    .dropdown button {
+      background: none;
+      border: none;
+      color: #468189;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 10px 15px;
+      width: 100%;
+      text-align: left;
+    }
+
+    .dropdown button:hover {
+      background-color: rgba(70, 129, 137, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="container">
+    <div class="logo">JobIQ – CARE</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="index.html#career-clusters">Explore</a>
+      <a href="upload_cv.html">Upload CV</a>
+      <a href="login.html" class="login-btn" id="login-btn">Login</a>
+
+      <div class="profile-menu" id="profile-menu" style="display:none;">
+        <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" 
+             id="profile-icon" 
+             alt="Profile"
+             style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid #468189; cursor: pointer;">
+        <div class="dropdown" id="profile-dropdown">
+          <button id="logout-btn">Logout</button>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Loading Overlay -->
+  <div id="loading-overlay">
+    <div class="spinner"></div>
+    <div id="loading-text">Analyzing your CV and preparing smart questions...</div>
+  </div>
+
+  <!-- Main -->
+  <main style="display:none;" id="main-content">
+    <h2>AI Analysis & Smart Questions</h2>
+    <p class="subtitle">Please answer a few tailored questions to help us understand your skills and experience better.</p>
+
+    <div id="questions-container"></div>
+
+    <button class="btn" id="generate-result-btn" onclick="generateResult()" style="display:none;">Generate Result</button>
+
+    <!-- Team Section -->
+    <section id="team" class="container">
+      <h2>Our Team</h2>
+      <p>The minds behind JobIQ - CARE</p>
+      <div class="team-grid">
+        <div class="team-member">
+          <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" class="team-dp" alt="Yash">
+          <div class="team-name">Yash Kale</div>
+          <div class="team-role">Team Member</div>
+        </div>
+        <div class="team-member">
+          <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" class="team-dp" alt="Jitesh">
+          <div class="team-name">Jitesh Choudhary</div>
+          <div class="team-role">Team Member</div>
+        </div>
+        <div class="team-member">
+          <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" class="team-dp" alt="Ruturaj">
+          <div class="team-name">Ruturaj Borawake</div>
+          <div class="team-role">Team Member</div>
+        </div>
+        <div class="team-member">
+          <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" class="team-dp" alt="Ayush">
+          <div class="team-name">Ayush Saraf</div>
+          <div class="team-role">Team Member</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 JobIQ - CARE. All rights reserved.</p>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      const loginBtn = document.getElementById("login-btn");
+      const profileMenu = document.getElementById("profile-menu");
+      const mainContent = document.getElementById("main-content");
+      const loadingOverlay = document.getElementById("loading-overlay");
+
+      const isLoggedIn = localStorage.getItem("loggedIn") === "true";
+      if (!isLoggedIn) {
+        window.location.href = "login.html";
+        return;
+      }
+      loginBtn.style.display = "none";
+      profileMenu.style.display = "inline-block";
+
+      const analysis = JSON.parse(localStorage.getItem("cv_analysis"));
+      if (!analysis) {
+        alert("Please upload your CV first!");
+        window.location.href = "upload_cv.html";
+        return;
+      }
+
+      try {
+        const res = await fetch("http://127.0.0.1:8000/generate_questions", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ cvData: analysis }),
+        });
+
+        if (!res.ok) throw new Error("Failed to fetch questions");
+        const data = await res.json();
+
+        const container = document.getElementById("questions-container");
+        container.innerHTML = "";
+
+        data.questions.forEach((q, i) => {
+          const card = document.createElement("div");
+          card.classList.add("question-card");
+          card.innerHTML = `
+            <label for="q${i}">${i + 1}. ${q}</label>
+            <textarea id="q${i}" placeholder="Type your answer here..."></textarea>
+          `;
+          container.appendChild(card);
+        });
+
+        document.getElementById("generate-result-btn").style.display = "inline-block";
+
+      } catch (err) {
+        console.error("❌ Error loading questions:", err);
+        alert("Error loading questions. Please ensure backend is running.");
+      } finally {
+        loadingOverlay.style.opacity = 0;
+        setTimeout(() => {
+          loadingOverlay.style.display = "none";
+          mainContent.style.display = "block";
+        }, 400);
+      }
+    });
+
+    async function generateResult() {
+      const analysis = JSON.parse(localStorage.getItem("cv_analysis"));
+      const answers = [];
+
+      document.querySelectorAll("textarea").forEach((t, i) => {
+        answers.push({
+          question: document.querySelector(`label[for="q${i}"]`).innerText,
+          answer: t.value.trim(),
+        });
+      });
+
+      if (answers.some(a => !a.answer)) {
+        alert("Please answer all questions before continuing.");
+        return;
+      }
+
+      localStorage.setItem("cvData", JSON.stringify(analysis));
+      localStorage.setItem("userAnswers", JSON.stringify(answers));
+      window.location.href = "result.html";
+    }
+
+    // Profile dropdown logic
+    const profileIcon = document.getElementById("profile-icon");
+    const logoutBtn = document.getElementById("logout-btn");
+    const dropdown = document.getElementById("profile-dropdown");
+
+    if (profileIcon) {
+      profileIcon.addEventListener("click", () => {
+        dropdown.classList.toggle("show");
+      });
+    }
+    if (logoutBtn) {
+      logoutBtn.addEventListener("click", () => {
+        localStorage.removeItem("loggedIn");
+        window.location.href = "login.html";
+      });
+    }
+  </script>
+</body>
+</html>
