@@ -58,21 +58,26 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 5️⃣ Set Up Environment Variables
+### 5️⃣ Install Gemini
+```bash
+pip install google-generativeai
+```
+
+### 6️⃣ Set Up Environment Variables
 Create `.env` inside `backend` with:
 ```
 API_KEY=your_api_key_here
 DATABASE_URL=your_database_url_here
 ```
 
-### 6️⃣ Run the Backend
+### 7️⃣ Run the Backend
 ```bash
 python main.py
 ```
 
 Server runs at `http://127.0.0.1:8000`
 
-### 7️⃣ View the Frontend
+### 8️⃣  View the Frontend
 Open `frontend/index.html` in your browser.
 
 ---
