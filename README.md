@@ -66,8 +66,15 @@ pip install google-generativeai
 ### 6️⃣ Set Up Environment Variables
 Create `.env` inside `backend` with:
 ```
-API_KEY=your_api_key_here
-DATABASE_URL=your_database_url_here
+MONGO_URI = "your_database_url_here"
+DB_NAME = "Database_Name_here"
+MAIL_USERNAME = "Your Mail here"
+MAIL_PASSWORD = "PASSWORD TO GENRATE MAIL"
+MAIL_FROM = "Your Mail here"
+MAIL_PORT = PORT_HERE
+MAIL_SERVER = "SERVER_HERE"
+GEMINI_API_KEY=your_api_key_here
+
 ```
 
 ### 7️⃣ Run the Backend
